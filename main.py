@@ -2,7 +2,7 @@ import function_library as fl
 
 
 
-fl.webscrape_dictionary("play","english", "turkish", 1)
+fl.webscrape_dictionary("teşekkürler","en", "tr", 1)
 
 dict_file = "words_ressource.csv"
 learned_file = "learned_words.csv"

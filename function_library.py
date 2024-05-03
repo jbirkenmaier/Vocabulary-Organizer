@@ -89,8 +89,29 @@ def write_to_learned(word_list, filename):
 
 def webscrape_dictionary(word,language1, language2, typ):
     #url = f"https://tureng.com/en/{language1}-{language2}/{word}"
+    url = f"https://en.wiktionary.org/wiki/{word}"
+
+    #<span class="mw-headline" id="Turkish">Turkish</span>
+    #<a href="https://en.wiktionary.org/wiki/good_morning#English" title="good morning">good morning</a>
+    #<span class="mw-headline" id="Interjection">Interjection</span>
+    
+    print(url)
     page = requests.get(url)
     soup = BeautifulSoup(page.content, "html.parser")
-    print(soup)
-    
+    language_section = soup.find('strong', attrs={'lang':language2})
+    next_ordered_list = language_section.find_next('ol')
+    list_items = next_ordered_list.find_all('li')
+    for item in list_items:
+        hyperlink = item.find('a')
+        if hyperlink:
+            title = hyperlink.string
+
+        print('translation:', title)
+    #for element in ordered_lists:
+    #    if element.id
+        
+    #print(soup)
+    #interjection = soup.find_all('span', {'class':'mw-headline', 'id':'Interjection'})
+    #print(interjection)
+
 
