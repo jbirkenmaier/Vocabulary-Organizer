@@ -88,7 +88,7 @@ def write_to_learned(word_list, filename):
             csv_data_writer.writerow(element)
 
 def webscrape_dictionary(word,language1, language2, typ):
-    url = f"https://tureng.com/en/{language1}-{language2}/{word}"
+    #url = f"https://tureng.com/en/{language1}-{language2}/{word}"
     page = requests.get(url)
     soup = BeautifulSoup(page.content, "html.parser")
     print(soup)
