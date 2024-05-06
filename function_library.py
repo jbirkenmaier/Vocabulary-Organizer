@@ -87,7 +87,17 @@ def write_to_learned(word_list, filename):
         for element in word_list:
             csv_data_writer.writerow(element)
 
-def webscrape_dictionary(word,language1, language2, typ):
+
+def short(language_string):
+    if language_string == "Turkish":
+        return 'tr'
+    elif language_string == "English":
+        return 'en'        
+
+def web_dictionary(word,language1, language2, typ):
+    short1 = short(language1)
+    short2 = short(language2)
+    
     #url = f"https://tureng.com/en/{language1}-{language2}/{word}"
     url = f"https://en.wiktionary.org/wiki/{word}"
 
@@ -103,7 +113,10 @@ def webscrape_dictionary(word,language1, language2, typ):
     #putt all the information together in a readable format
 
     #go to "language2"
-    start_of_language_section = soup.find('span', attrs={"class":"mw-headline","id":"Turkish"})
+
+
+    
+    start_of_language_section = soup.find('span', attrs={"class":"mw-headline","id":f"{language2}"})
     end_of_language_section = start_of_language_section.find_next('h2')
 
     content = []

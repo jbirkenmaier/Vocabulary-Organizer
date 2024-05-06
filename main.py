@@ -1,10 +1,10 @@
 import function_library as fl
 
-
+language2 = input('translate from: ')
 
 while True:
     word = input('')
-    fl.webscrape_dictionary(f"{word}","en", "tr", 1)
+    fl.web_dictionary(f"{word}","English", language2, 1)
 
 #teşekkürler
 
