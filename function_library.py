@@ -95,23 +95,47 @@ def webscrape_dictionary(word,language1, language2, typ):
     #<a href="https://en.wiktionary.org/wiki/good_morning#English" title="good morning">good morning</a>
     #<span class="mw-headline" id="Interjection">Interjection</span>
     
-    print(url)
+    #print(url)
     page = requests.get(url)
     soup = BeautifulSoup(page.content, "html.parser")
-    language_section = soup.find('strong', attrs={'lang':language2})
-    next_ordered_list = language_section.find_next('ol')
-    list_items = next_ordered_list.find_all('li')
-    for item in list_items:
-        hyperlink = item.find('a')
-        if hyperlink:
-            title = hyperlink.string
 
-        print('translation:', title)
-    #for element in ordered_lists:
-    #    if element.id
-        
-    #print(soup)
-    #interjection = soup.find_all('span', {'class':'mw-headline', 'id':'Interjection'})
-    #print(interjection)
+    #read all ordered list within
+    #putt all the information together in a readable format
 
+    #go to "language2"
+    start_of_language_section = soup.find('span', attrs={"class":"mw-headline","id":"Turkish"})
+    end_of_language_section = start_of_language_section.find_next('h2')
+
+    content = []
+
+    current_element = start_of_language_section.find_next()
+
+    while current_element and current_element != end_of_language_section:
+        #print(current_element)
+        content.append(current_element)
+        current_element = current_element.find_next()
+
+    print(len(content))
+
+    translations = []
+
+    for (index, element) in enumerate(content):
+        if element.name == "ol":
+            headline = element.find_previous('strong')
+            headline_class=headline.attrs.get('class', [])
+            headline_class_string=''
+            for obj in headline_class:
+                headline_class_string+=obj
+            if headline.string == word and headline_class_string== "Latnheadword":#and element.find('span')==None:
+                print(headline)
+                print(element)
+                list_items = element.find_all('li')
+                for item in list_items:
+                    text = item.get_text().replace('\n',', ')
+                    #hyperlink = item.find('a')
+                    #if hyperlink:
+                    #    translations.append(hyperlink.string)
+                    translations.append(text)
+
+    print('translation:', translations)
 

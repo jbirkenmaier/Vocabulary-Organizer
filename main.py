@@ -2,7 +2,11 @@ import function_library as fl
 
 
 
-fl.webscrape_dictionary("teşekkürler","en", "tr", 1)
+while True:
+    word = input('')
+    fl.webscrape_dictionary(f"{word}","en", "tr", 1)
+
+#teşekkürler
 
 dict_file = "words_ressource.csv"
 learned_file = "learned_words.csv"
